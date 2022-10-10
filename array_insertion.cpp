@@ -12,17 +12,25 @@ int insert(int element,int position,int arr[],int arr_size,int arr_capacity)
     arr_size++;
     return arr_size;
 }
-// delete function
-int delete_function(int element,int position,int arr[],int arr_size,int arr_capacity)
+//search function
+int search_element(int element,int arr[],int size)
 {
-    if(arr_capacity==arr_size) return arr_size;
-    for(int i=arr_size-1;i>=position-1;i--)
+    for (int i = 0; i < size; i++)
     {
-        arr[i+1] = arr[i];
-    }
-    arr[position-1] = element;
-    arr_size++;
-    return arr_size;
+        if(arr[i] == element){
+            cout<<"Element found at location "<<i+1;            
+        }
+    } 
+    return 0;  
+    
+}
+// delete function
+int delete_function(int position,int arr[],int arr_size)
+{
+    for (int i = position; i < arr_size; i++)
+    {
+        arr[i] = arr[i+1];
+    } return arr_size;
 }
 // main function
 int main()
@@ -33,7 +41,7 @@ int main()
     int position = 2;
     int arr_capacity = 10;
     // before insertion
-    cout<<"Array is : {";
+    cout<<"Array is : \t\t"<<"{";
     for (int i = 0; i < arr_size; i++)
     {
         cout<<arr[i]<<"\t";
@@ -41,19 +49,19 @@ int main()
 
     // insert element
     arr_size = insert(element,position,arr,arr_size,arr_capacity);    
-    cout<<"After Element Insertion {";
+    cout<<"After Element Insert {";
     for (int i = 0; i < arr_size; i++)
     {
-        cout<<endl;    
-        cout<<arr[i];
+        cout<<"\t"<<arr[i];
     }cout<<"}"<<endl;
     
     // delete element
-    arr_size = delete_function(element,position,arr,arr_size,arr_capacity);    
-    cout<<"After Element Insertion";
+    delete_function(element,arr,arr_size);    
+    cout<<"After Element Delete {";
     for (int i = 0; i < arr_size; i++)
     {
-        cout<<endl;    
-        cout<<arr[i];
-    }
+       cout<<"\t"<<arr[i];
+    }cout<<"}"<<endl;
+
+    search_element(3,arr,arr_size);
 }
