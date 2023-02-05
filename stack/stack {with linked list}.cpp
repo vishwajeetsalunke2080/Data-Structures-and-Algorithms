@@ -24,7 +24,6 @@ class stack
 
    void push(int data)
    {
-        // int size = 5;
         node *temp = new node(data);
         if(!temp)
         {
@@ -32,9 +31,7 @@ class stack
         }
             temp->data = data;
             temp->next = top;
-            // size--;
-          
-        top = temp;      
+            top = temp;      
    }
 
    void traverse()
@@ -63,6 +60,41 @@ class stack
             top = temp->next;
         }
    }
+
+   void stackTop()
+   {
+        if(!isEmpty())
+        {
+            cout<<"stack top is "<<top->data<<endl;
+        }else{
+            cout<<"stack is empty"<<endl;
+        }
+   }
+
+   bool isEmpty()
+   {
+        if(top==NULL)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+   }
+
+   void stackBottom()
+   {
+        node *temp = top;
+        if(temp==NULL)
+        {
+            cout<<"stack is empty!!"<<endl;
+        }
+        while(temp->next!=NULL)
+        {
+            temp = temp->next;
+        }
+        cout<<"stack bottom is "<<temp->data<<endl;
+   }
 };
 
 int main()
@@ -81,5 +113,14 @@ int main()
     s.pop();
     s.pop();
     s.traverse();
+    s.stackTop();
+    s.stackBottom();
+    if(s.isEmpty())
+    {
+        cout<<"stack is empty"<<endl;
+    }else{
+        cout<<"stack is not empty"<<endl;
+    }
+
     return 0;
 }
