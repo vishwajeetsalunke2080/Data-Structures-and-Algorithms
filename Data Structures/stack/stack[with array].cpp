@@ -1,103 +1,91 @@
 #include<iostream>
 using namespace std;
+
 class stack
 {
     public:
+    int *arr;
     int size;
     int top;
-    int *arr;
     stack(int size)
     {
         this->size = size;
-        top=-1;
         arr = new int[size];
+        top = -1;
     }
 
     void push(int data)
-    {
-        if(size-top>1)
+    {   
+        if(top<size-1)
         {
             top++;
             arr[top] = data;
             cout<<"element "<<data<<" pushed on stack"<<endl;
         }
         else{
-            cout<<"error!! can't insert element "<<data<<" stack is full"<<endl;
+            cout<<"cannot push "<<data<<", stack is full "<<endl;
         }
     }
-    
+
     void pop()
     {
-        if(!isEmpty() && top<size)
+        if(isEmpty())
         {
-            arr[top] = 0;
+            cout<<"stack is already empty "<<endl;
+        }else{
+            cout<<"element "<<arr[top]<<" popped"<<endl;
+            arr[top]=0;
             top--;
         }
+    }
+
+    void peek()
+    {
+        if(isEmpty())
+        {
+            cout<<"stack is empty "<<endl;
+        }
         else{
-            cout<<"error!! cannot pop element stack is empty"<<endl;
+            cout<<"stack top is :"<<arr[top]<<endl;
         }
     }
 
     bool isEmpty()
     {
-        if(top ==-1)
+        if(top==-1)
         {
             return true;
-        }
-        else{
+        }else{
             return false;
         }
     }
 
-    int peek()
+    void display()
     {
-        if (!isEmpty() && top<size)
+        if(isEmpty())
         {
-            return arr[top];
-        }
-        else{
-            cout<<"stack is empty"<<endl; 
-            return -1;           
-        }
-    }
-
-    void show()
-    {
-        if(!isEmpty())
-        {
-            for(int i=0;i<size;i++)
-            {
-                cout<<arr[i]<<" ";
-            }
-            cout<<endl;
+            cout<<"stack is empty "<<endl;
+            cout<<"|__null__|"<<endl;
         }else{
-            cout<<"error!! stack is empty"<<endl;
+            for (int i = top; i >= 0; i--)
+            {
+                cout<<"|_"<<arr[i]<<"_|"<<endl;
+            }
         }
     }
-
-   
 };
 
 int main()
 {
-    stack st(5);
-    st.push(1);
-    st.push(2);
-    st.push(3);
-    st.push(4);
-    st.push(5);
-    st.push(6);
-    st.show();
-    cout<<"top of stack is "<<st.peek()<<endl;
-    st.pop();
-    cout<<"after pop operation"<<endl;
-    // st.push(6);
-    st.show();    
-    if(st.isEmpty())
-    {
-        cout<<"stack is empty"<<endl;
-    }else{
-        cout<<"stack is not empty"<<endl;
-    }
+    stack s(5);
+    s.push(20);
+    s.push(21);
+    s.push(22);
+    s.push(23);
+    s.push(24);
+    s.push(26);
+    s.display();
+    s.pop();
+    s.display();
     return 0;
 }

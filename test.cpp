@@ -1,67 +1,91 @@
 #include<iostream>
 using namespace std;
-class node
+
+class stack
 {
     public:
-    int data;
-    node *next;
-    node *prev;
-    node(int data)
+    int *arr;
+    int size;
+    int top;
+    stack(int size)
     {
-        this->data = data;
-        this->next = NULL;
-        this->prev = NULL;
+        this->size = size;
+        arr = new int[size];
+        top = -1;
+    }
+
+    void push(int data)
+    {   
+        if(top<size-1)
+        {
+            top++;
+            arr[top] = data;
+            cout<<"element "<<data<<" pushed on stack"<<endl;
+        }
+        else{
+            cout<<"cannot push "<<data<<", stack is full "<<endl;
+        }
+    }
+
+    void pop()
+    {
+        if(isEmpty())
+        {
+            cout<<"stack is already empty "<<endl;
+        }else{
+            cout<<"element "<<arr[top]<<" popped"<<endl;
+            arr[top]=0;
+            top--;
+        }
+    }
+
+    void peek()
+    {
+        if(isEmpty())
+        {
+            cout<<"stack is empty "<<endl;
+        }
+        else{
+            cout<<"stack top is :"<<arr[top]<<endl;
+        }
+    }
+
+    bool isEmpty()
+    {
+        if(top==-1)
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    void display()
+    {
+        if(isEmpty())
+        {
+            cout<<"stack is empty "<<endl;
+            cout<<"|__null__|"<<endl;
+        }else{
+            for (int i = top; i >= 0; i--)
+            {
+                cout<<"|_"<<arr[i]<<"_|"<<endl;
+            }
+        }
     }
 };
-node *insert(int data,node *head)
-{
-    node *created = new node(data);
-    node *temp = head;
-    if(head==NULL)
-    {
-        head = created;
-        head->next = head;
-        head->prev = head;
-        return head;
-    }
-    else
-    {
-        while(temp->next!=head)
-        {
-            temp = temp->next;
-        }
-        created->next = head;
-        created->prev = temp;
-        head->prev = created;
-        temp->next = created;
-
-    }
-    return head;
-}
-
-void traverse(node *head)
-{
-    node *temp = head;
-    if(temp==NULL)
-    {
-        cout<<"list is empty"<<endl;
-    }
-    do
-    {
-        cout<<temp->data<<" ";
-        temp = temp->next;
-    }while(temp!=head);
-    cout<<endl;
-}
 
 int main()
 {
-    node *head = NULL;
-    head = insert(2,head);
-    head = insert(4,head);
-    head = insert(6,head);
-    head = insert(8,head);
-    head = insert(10,head);
-    traverse(head);
+    stack s(5);
+    s.push(20);
+    s.push(21);
+    s.push(22);
+    s.push(23);
+    s.push(24);
+    s.push(26);
+    s.display();
+    s.pop();
+    s.display();
     return 0;
 }
