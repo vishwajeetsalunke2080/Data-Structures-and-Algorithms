@@ -32,6 +32,7 @@ class stack
         if(isEmpty())
         {
             cout<<"stack is already empty "<<endl;
+            cout<<"|__null__|"<<endl;
         }else{
             cout<<"element "<<arr[top]<<" popped"<<endl;
             arr[top]=0;
@@ -44,6 +45,7 @@ class stack
         if(isEmpty())
         {
             cout<<"stack is empty "<<endl;
+            cout<<"|__null__|"<<endl;
         }
         else{
             cout<<"stack top is :"<<arr[top]<<endl;

@@ -1,8 +1,7 @@
 #include<iostream>
 using namespace std;
-
 class node
-{    
+{
     public:
     int data;
     node *next;
@@ -11,68 +10,50 @@ class node
         this->data = data;
         this->next = NULL;
     }
-}; 
+};
 
-class stack
+class Stack
 {
-   public:
-   node *top;
-   stack()
-   {
+    public:
+    int size;
+    node *top;
+    int count = 0;
+    Stack(int size)
+    {   
         top = NULL;
-   }
+        this->size = size;
+    }
 
-   void push(int data)
-   {
-        node *temp = new node(data);
-        if(!temp)
-        {
-            cout<<"Stack is Full!!"<<endl;
+    void push(int data)
+    {
+        node *created = new node(data);
+        if(count<size)
+        {              
+            created->data = data;
+            created->next = top;
+            top = created;
+            count++;   
         }
-            temp->data = data;
-            temp->next = top;
-            top = temp;      
-   }
+        else{
+            cout<<"stack is full!"<<endl;
+        }       
+    }
 
-   void traverse()
-   {
-        node *temp = top;
-        if(top==NULL)
-        {
-            cout<<"stack is empty"<<endl;
-        }
-            while(temp!=NULL)
-            {
-                cout<<temp->data<<" ";
-                temp = temp->next;
-            }
-            cout<<endl;
-   }
-
-   void pop()
-   {
-        node *temp = top;
-        if(top==NULL)
-        {
-            cout<<"stack is empty";
-        }else{
-            cout<<"element "<<temp->data<<" popped"<<endl;
-            top = temp->next;
-        }
-   }
-
-   void stackTop()
-   {
+    void pop()
+    {
         if(!isEmpty())
         {
-            cout<<"stack top is "<<top->data<<endl;
+            node *temp = top;
+            cout<<"element "<< temp->data<<" popped"<<endl;
+            top = temp->next;
+            count--;
         }else{
             cout<<"stack is empty"<<endl;
         }
-   }
+    }
 
-   bool isEmpty()
-   {
+    bool isEmpty()
+    {
         if(top==NULL)
         {
             return true;
@@ -80,47 +61,68 @@ class stack
         else{
             return false;
         }
-   }
+    }
 
-   void stackBottom()
-   {
+    void peekTop()
+    {
         node *temp = top;
-        if(temp==NULL)
+        if(!isEmpty())
         {
-            cout<<"stack is empty!!"<<endl;
+            cout<<"top of stack is :"<<temp->data<<endl;
         }
-        while(temp->next!=NULL)
+        else{
+            cout<<"stack is empty!"<<endl;
+        }   
+    }
+
+    void peekBottom()
+    {
+        node *temp = top;
+        if(!isEmpty())
         {
-            temp = temp->next;
+            while(temp->next != NULL)
+            {
+                temp = temp->next;
+            }
+            cout<<"bottom of stack is :"<<temp->data<<endl;
         }
-        cout<<"stack bottom is "<<temp->data<<endl;
-   }
+        else{
+            cout<<"stack is empty!"<<endl;
+        }   
+    }
+
+    void traverse()
+    {
+        node *temp = top;
+        if(!isEmpty())
+        {
+            while(temp!=NULL)
+            {
+                cout<<"|_"<<temp->data<<"_|"<<endl;
+                temp = temp->next;
+            }   
+        }
+        else{
+            cout<<"stack is empty!"<<endl;
+        }
+    }
 };
 
 int main()
 {
-    stack s;
-    s.push(1);
-    s.push(2);
-    s.push(3);
-    s.push(4);
-    s.push(5);
-    s.push(6);
-    s.push(7);
-    s.push(8);
-    s.push(9);
-    s.traverse();
+    Stack s(5);
+    s.push(10);
+    s.push(20);
+    s.push(30);
+    s.push(40);
+    s.push(50);
+    s.push(60);
     s.pop();
     s.pop();
-    s.traverse();
-    s.stackTop();
-    s.stackBottom();
-    if(s.isEmpty())
-    {
-        cout<<"stack is empty"<<endl;
-    }else{
-        cout<<"stack is not empty"<<endl;
-    }
-
+    s.traverse();    
+    s.peekBottom();
+    s.peekTop();
+    cout<<s.isEmpty()<<endl;
+    
     return 0;
 }
